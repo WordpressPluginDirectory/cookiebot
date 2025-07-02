@@ -28,7 +28,7 @@ async function checkScanStatus(scanId) {
 
         const data = await response.json();
 
-        if (data.status === 'DONE') {
+        if (data.status?.toLowerCase() === 'done') {
             await fetch(cookiebot_account.ajax_url, {
                 method: 'POST',
                 body: createFormData('cookiebot_store_scan_details', {
@@ -197,6 +197,8 @@ function canReload() {
 document.addEventListener('DOMContentLoaded', async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const ucApiCode = urlParams.get('uc_api_code');
+    const companyId = urlParams.get('company_id');
+
     // if (!cookiebot_account.has_cbid) {
     //     window.trackAmplitudeEvent('Get Started Page Visited');
     // }
@@ -205,10 +207,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    // For previously onboarded users that disconnected the account, no new account registration workflow is needed 
-    if (!cookiebot_account.has_cbid && cookiebot_account.was_onboarded) {
-        return;
+    if (cookiebot_account.cbid !== cookiebot_account.scan_id) {
+        await fetch(cookiebot_account.ajax_url, {
+            method: 'POST',
+            body: createFormData('cookiebot_update_scan_id', {
+                scan_id: cookiebot_account.cbid
+            }),
+            credentials: 'same-origin'
+        });
+        if (canReload()) {
+            window.location.reload();
+        }
     }
+
+    // For previously onboarded users that disconnected the account, no new account registration workflow is needed 
+    // if (!cookiebot_account.has_cbid && cookiebot_account.was_onboarded) {
+    //     return;
+    // }
 
     try {
         authToken = await fetch(cookiebot_account.ajax_url, {
@@ -318,6 +333,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (!cbid) {
             try {
+                if (!companyId) {
+                    // Without company ID we cannot create the other config params, so stop the workflow right here.
+                    return;
+                }
+
                 // Create new configuration
                 const siteDomain = window.location.hostname;
                 const formattedDomain = siteDomain.startsWith('http') ? siteDomain : `https://${siteDomain}`;
@@ -333,7 +353,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                         configuration_name: "",
                         data_controller: "",
                         legal_framework_template: "gdpr",
-                        domains: [formattedDomain]
+                        domains: [formattedDomain],
+                        company_id: companyId
                     })
                 });
 
@@ -403,8 +424,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 await checkScanStatus(scanDetails.data.scan_id);
             }
             // And fetch configuration details 
-            await fetchConfigurationDetails(cbid);
-            await checkUserData();
+            if (cbid) {
+                await fetchConfigurationDetails(cbid);
+                await checkUserData();
+            }
         }
 
         // Check and fetch user data if needed

@@ -62,25 +62,6 @@ $header->display();
 			</div>
 		<?php endif; ?>
 
-		<!-- Banner connected notice -->
-		<?php if ( ! empty( $template_args['cbid'] ) && empty( $template_args['user_data'] ) ) : ?>
-			<div class="header-top-banners connected-banner">
-				<div class="banner-content">
-					<img src="<?php echo \esc_url( CYBOT_COOKIEBOT_PLUGIN_URL . 'assets/img/icons/check-green.svg' ); ?>"
-						alt="Check Icon">
-					<div>
-						<h3><?php echo esc_html__( 'Your banner is connected!', 'cookiebot' ); ?></h3>
-						<p style="text-wrap: nowrap;">
-							<?php echo esc_html__( 'Everything works as before. Manage your banner in the', 'cookiebot' ); ?>
-							<a href="<?php echo esc_url( $template_args['cookiebot_admin_link'] ); ?>" target="_blank"><?php echo esc_html__( 'Cookiebot Manager', 'cookiebot' ); ?></a>
-							<?php echo esc_html__( 'or', 'cookiebot' ); ?>
-							<a href="<?php echo esc_url( $template_args['uc_admin_link'] ); ?>" target="_blank"><?php echo esc_html__( 'Usercentrics Admin', 'cookiebot' ); ?></a>.
-						</p>
-					</div>
-				</div>
-			</div>
-		<?php endif; ?>
-
 		<!-- Banner is live notice -->
 		<?php
 		$banner_dismissed = get_option( 'cookiebot_banner_live_dismissed', false );
@@ -97,7 +78,7 @@ $header->display();
 						<h3>Well done! Your <a href="<?php echo esc_url( site_url() ); ?>" target="_blank" class="banner-live-link">banner is live</a>.</h3>
 						<p>
 							<?php
-							echo esc_html__( 'Stay live after your trial by choosing a Free or Premium plan.', 'cookiebot' );
+							echo esc_html__( 'Choose your plan to stay live: pick our Free plan or upgrade to Premium for full control.', 'cookiebot' );
 							?>
 							<!-- <a href="https://account.usercentrics.eu/subscription/<?php echo isset( $template_args['user_data']['subscriptions']['active']['subscription_id'] ) ? esc_attr( $template_args['user_data']['subscriptions']['active']['subscription_id'] ) . '/' : ''; ?>manage" target="_blank" style="text-decoration: underline; color: inherit;" onclick="window.trackAmplitudeEvent('Choose Plan Link Clicked', { price_plan: '<?php echo esc_js( $template_args['user_data']['subscriptions']['active']['price_plan'] ? $template_args['user_data']['subscriptions']['active']['price_plan'] : '' ); ?>', account_id: '<?php echo esc_js( $template_args['cbid'] ); ?>' });"><?php echo esc_html__( 'Choose plan', 'cookiebot' ); ?></a> -->
 							<a href="https://account.usercentrics.eu/subscription/<?php echo isset( $template_args['user_data']['subscriptions']['active']['subscription_id'] ) ? esc_attr( $template_args['user_data']['subscriptions']['active']['subscription_id'] ) . '/' : ''; ?>manage" target="_blank" style="text-decoration: underline; color: inherit;">
@@ -125,86 +106,49 @@ $header->display();
 				<div class="gray-box">
 					<div class="header-section-no-margin">
 						<img src="<?php echo \esc_url( CYBOT_COOKIEBOT_PLUGIN_URL . 'assets/img/icons/set-up-icon.svg' ); ?>" alt="Usercentrics Logo">
-						<?php if ( ! empty( $template_args['cbid'] ) && empty( $template_args['user_data'] ) ) : ?>
-							<h1><?php echo \esc_html__( 'Simplify your banner management', 'cookiebot' ); ?></h1>
-						<?php else : ?>
-							<h1><?php echo \esc_html__( 'Set up your consent banner', 'cookiebot' ); ?></h1>
-						<?php endif; ?>
+						<h1><?php echo \esc_html__( 'Set up your cookie banner', 'cookiebot' ); ?></h1>
 					</div>
 					<div class="header-section">
-						<?php if ( empty( $template_args['cbid'] ) && empty( $template_args['user_data'] ) ) : ?>
-							<p class="subtitle">
-								<?php echo esc_html__( 'Get your site GDPR-compliant in', 'cookiebot' ); ?>
-								<strong><?php echo esc_html__( 'just a few clicks.', 'cookiebot' ); ?></strong>
-								<?php echo esc_html__( 'Enter your email, verify it, and create your password.', 'cookiebot' ); ?>
-							</p>
-						<?php endif; ?>
-						<?php if ( ! empty( $template_args['cbid'] ) && empty( $template_args['user_data'] ) ) : ?>
-							<p class="subtitle">
-								<?php echo esc_html__( 'Your setup is good to go - but we\'re making banner control even easier inside WordPress.', 'cookiebot' ); ?>
-								<strong><?php echo esc_html__( 'Get access to new features', 'cookiebot' ); ?></strong>
-								<?php echo esc_html__( 'by updating your banner today.', 'cookiebot' ); ?>
-							</p>
+						<?php if ( empty( $template_args['user_data'] ) ) : ?>
+						<p class="subtitle">
+							<?php echo esc_html__( 'Get your site GDPR-compliant in', 'cookiebot' ); ?>
+							<strong><?php echo esc_html__( 'just a few clicks.', 'cookiebot' ); ?></strong>
+							<?php echo esc_html__( 'Enter your email, verify it, and create your password.', 'cookiebot' ); ?>
+						</p>
 						<?php endif; ?>
 					</div>
-
 
 					<!-- Steps Container -->
 					<div class="steps-container">
 						<!-- Activate your banner step -->
 						<div class="step-box <?php echo ! empty( $template_args['cbid'] ) ? 'completed' : ''; ?>">
 							<div class="step-row">
-
-								<?php if ( ! empty( $template_args['cbid'] ) && empty( $template_args['user_data'] ) ) : ?>
-									<div class="step-icon">
-										<div class="empty-circle"></div>
-									</div>
-									<div class="step-content">
-										<h2><?php echo \esc_html__( 'Unlock new banner', 'cookiebot' ); ?></h2>
-									</div>
-								<?php endif; ?>
-
-								<?php if ( empty( $template_args['cbid'] ) && empty( $template_args['user_data'] ) ) : ?>
-									<div class="step-icon">
-										<div class="empty-circle"></div>
-									</div>
-									<div class="step-content">
-										<h2><?php echo \esc_html__( 'Get your banner live in seconds', 'cookiebot' ); ?></h2>
-									</div>
-								<?php endif; ?>
-
 								<?php if ( ! empty( $template_args['cbid'] ) && ! empty( $template_args['user_data'] ) ) : ?>
 									<div class="step-icon">
 										<img src="<?php echo \esc_url( CYBOT_COOKIEBOT_PLUGIN_URL . 'assets/img/icons/check-mark.svg' ); ?>" alt="Checkmark">
 									</div>
 									<div class="step-content">
-										<h2><?php echo \esc_html__( 'Get your banner live in seconds', 'cookiebot' ); ?></h2>
+										<h2><?php echo \esc_html__( 'Activate your banner', 'cookiebot' ); ?></h2>
 									</div>
 									<span class="done-status">Done!</span>
+								<?php else : ?>
+									<div class="step-icon">
+										<div class="empty-circle"></div>
+									</div>
+									<div class="step-content">
+										<h2><?php echo \esc_html__( 'Get your banner live in seconds', 'cookiebot' ); ?></h2>
+									</div>
 								<?php endif; ?>
-
 							</div>
 
-							<?php if ( empty( $template_args['user_data'] ) ) : ?>
+							<?php if ( empty( $template_args['user_data'] ) || empty( $template_args['cbid'] ) && ! empty( $template_args['scan_id'] ) ) : ?>
 								<div class="banner-preview-container">
 									<div class="divider"></div>
-									<?php if ( ! empty( $template_args['cbid'] ) && empty( $template_args['user_data'] ) ) : ?>
-										<p class="step-description">
-											<?php echo esc_html__( 'We\'ve simplified privacy compliance for you. Save time with auto-setup, website scanning for data processing services, and consent-first blocking.', 'cookiebot' ); ?>
-										</p>
-									<?php else : ?>
-										<p class="step-description">
-											<?php
-											echo wp_kses(
-												__( 'Instant setup with automatic cookie blocking. Try all features free for 14 days - no credit card needed.<br> Choose Free or Premium before your trial ends to stay live.', 'cookiebot' ),
-												array(
-													'strong' => array(),
-													'br' => array(),
-												)
-											);
-											?>
-										</p>
-									<?php endif; ?>
+									<p class="step-description">
+										• Instant setup & automatic cookie blocking<br>
+										• 14 days of all-access premium features (no card needed)<br>
+										• Keep it live afterwards on our Free plan or upgrade any time
+									</p>
 									<div class="banner-images">
 										<?php
 										$banner1_url = CYBOT_COOKIEBOT_PLUGIN_URL . 'assets/img/banner-getting-started1.png';
@@ -220,19 +164,13 @@ $header->display();
 									</div>
 									<div class="activate-container">
 										<button id="get-started-button" class="cb-btn cb-primary-btn cb-get-started-btn">
-											<?php echo esc_html__( 'Get Started', 'cookiebot' ); ?>
+											<?php echo esc_html__( 'Activate free banner', 'cookiebot' ); ?>
 										</button>
 										<img src="<?php echo \esc_url( $arrow_url ); ?>"
 											alt="arrow"
 											class="banner-arrow">
 									</div>
 
-									<?php if ( ! empty( $template_args['cbid'] ) ) : ?>
-										<div class="note-text">
-											<img class="note-icon" src="<?php echo esc_url( CYBOT_COOKIEBOT_PLUGIN_URL . 'assets/img/icons/info.svg' ); ?>" />
-											<span>Note: A new account comes with a new banner, which will replace your existing one.</span>
-										</div>
-									<?php endif; ?>
 									<div>
 										<div class="cb-general__info__text">
 											<span class="note-text">Already have a Cookiebot or Usercentrics account?</span>
@@ -248,7 +186,7 @@ $header->display();
 						</div>
 
 						<!-- Scan website step - only show when CBID exists -->
-						<?php if ( ! empty( $template_args['user_data'] ) ) : ?>
+						<?php if ( ! empty( $template_args['user_data'] ) && ! empty( $template_args['cbid'] ) ) : ?>
 							<div class="step-box">
 								<div class="step-row">
 									<div class="step-icon">
@@ -259,7 +197,7 @@ $header->display();
 										<?php endif; ?>
 									</div>
 									<div class="step-content">
-										<h2><?php echo \esc_html__( 'Scan website', 'cookiebot' ); ?></h2>
+										<h2><?php echo \esc_html__( 'Scan your website', 'cookiebot' ); ?></h2>
 									</div>
 									<div class="step-status">
 										<?php
@@ -312,7 +250,7 @@ $header->display();
 						<?php endif; ?>
 
 						<!-- Upgrade your plan step -->
-						<?php if ( ! empty( $template_args['user_data'] ) ) : ?>
+						<?php if ( ! empty( $template_args['user_data'] ) && ! empty( $template_args['cbid'] ) ) : ?>
 							<div class="step-box">
 								<div class="step-row">
 									<div class="step-icon">
@@ -327,7 +265,7 @@ $header->display();
 										<?php endif; ?>
 									</div>
 									<div class="step-content">
-										<h2><?php echo \esc_html__( 'Upgrade your plan', 'cookiebot' ); ?></h2>
+										<h2><?php echo \esc_html__( 'Choose your plan', 'cookiebot' ); ?></h2>
 									</div>
 									<div class="step-status">
 										<div class="lightning-badge">
@@ -375,11 +313,11 @@ $header->display();
 										<div class="trial-countdown">
 											<?php if ( Cookiebot_WP::is_in_trial() && ! $trial_expired ) : ?>
 												<img src="<?php echo \esc_url( CYBOT_COOKIEBOT_PLUGIN_URL . 'assets/img/icons/clock-icon-blue.svg' ); ?>" alt="Clock Icon">
-												<p class="step-message"><strong>Your trial ends in</strong> <span class="days-highlight"><?php echo absint( Cookiebot_WP::get_trial_days_left() ); ?> days</span>.</p>
+												<p class="step-message"><strong>Enjoy all Premium features for</strong> <span class="days-highlight"><?php echo absint( Cookiebot_WP::get_trial_days_left() ); ?> days</span>.</p>
 											<?php endif; ?>
 										</div>
 
-										<p class="step-message">Upgrade to get full access to premium features. <br> Premium includes:</p>
+										<p class="step-message">Remember to choose a Free or Premium plan to keep your banner live. Premium includes:</p>
 
 										<ul class="upgrade-features">
 											<li><strong>Higher session limits</strong> for growing traffic</li>
@@ -389,7 +327,7 @@ $header->display();
 
 										<div class="upgrade-container">
 											<button id="upgrade-now-button" class="cb-btn cb-primary-btn" onclick="/* window.trackAmplitudeEvent('Bottom Upgrade Now Clicked', { settingsId: '<?php echo esc_js( $template_args['cbid'] ); ?>', account_id: '<?php echo esc_js( $template_args['cbid'] ); ?>' }); */ window.open('https://account.usercentrics.eu/subscription/<?php echo isset( $template_args['user_data']['subscriptions']['active']['subscription_id'] ) ? esc_attr( $template_args['user_data']['subscriptions']['active']['subscription_id'] ) . '/' : ''; ?>manage', '_blank')">
-												<?php echo esc_html__( 'Upgrade now', 'cookiebot' ); ?>
+												<?php echo esc_html__( 'Choose my plan', 'cookiebot' ); ?>
 											</button>
 										</div>
 									</div>
@@ -400,7 +338,7 @@ $header->display();
 				</div>
 
 				<!-- Right Side - Banner Control (only show when CBID exists) -->
-				<?php if ( $template_args['user_data'] ) : ?>
+				<?php if ( $template_args['user_data'] && $template_args['cbid'] ) : ?>
 					<div class="gray-box-overview">
 						<div class="header-section">
 							<div>
